@@ -6,11 +6,14 @@ public class TestRomanNumerals
 {
 
 	@Test
-	public void test() 
+	public void test_calculation_of_Roman_Numerals() 
 		{
 		String year = "MCMLXXXIV";
+		int result = 0;
 		RomanNumerals x = new RomanNumerals();
-		if (x.convertToInteger(year) != 1984) fail("Not yet implemented");
+		result = x.convertToInteger(year);
+		if (result == -1) fail ("The Roman number had illegal letter combos in it");
+		if (result != 1984) fail("Numbers do not match");
 		}
 
 	@Test
@@ -35,14 +38,39 @@ public class TestRomanNumerals
 		}
 	
 	@Test
-	public void test_are_there_two_VLD_or_more_than_three_IXCM_in_row() 
-		{
-		String year = "MCMLXXXIV";
-		RomanNumerals x = new RomanNumerals();
-		if (x.threeRow(year) != 0) fail("Something went awry");
-		}
+	public void test_cheatCalculation()
+	{
+	String year = "CMCDXCXLIXIV";
+	RomanNumerals x = new RomanNumerals();
+	year = x.cheatCalculation(year);
+	}
+	
+	@Test
+	public void test_checkValidity() // If there are more than 3 x of specific letter or 2 x of another
+	{
+	// Select which failure to test	
+	// String year = "MMMM";
+	// String year = "DD";
+	// String year = "CCCC";
+	// String year = "LL";
+	// String year = "XXXX";
+	// String year = "VV";
+	String year = "IIII";
+	RomanNumerals x = new RomanNumerals();
+	// char result = x.checkValidity(year);
+	if (!x.checkValidity(year)) fail ("Fails because too many (2 / 4) Roman numerals of type in a row");
+	}
 	
 	
-	
+	@Test
+	public void test_illegalCombos()
+	{
+	// String year="IX"; // should work	
+	// String year="IC"; // should fail
+	// String year = "MCMLXXXIV"; // should work
+	String year = "MXMLXXXIV"; // should fail
+	RomanNumerals x = new RomanNumerals();
+	if (!x.illegalCombos(year)) fail ("Wrong roman numeral combos detected");
+	}
 	
 }
